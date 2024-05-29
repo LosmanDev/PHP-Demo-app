@@ -1,4 +1,5 @@
 <?php
+
 function dd($value)
 {
     echo '<pre>';
@@ -10,8 +11,11 @@ function dd($value)
     die();
 }
 
+
+
 function urlIs($value)
 {
+    //$_SERVER is an array containing information such as headers, paths, and script locations
     return  $_SERVER['REQUEST_URI'] === $value;
 }
 

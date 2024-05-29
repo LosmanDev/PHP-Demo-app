@@ -1,7 +1,5 @@
 <?php require('partials/head.php') ;?>
 <?php require('partials/nav.php') ;?>
-<?php require('partials/banner.php') ;?>
-
 
 <section class="bg-white">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
