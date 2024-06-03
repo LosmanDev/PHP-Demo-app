@@ -14,7 +14,9 @@
               aria-current="page">Home</a>
             <a href="/about"
               class="<?urlIs('/about')  === '/about' ?  'bg-gray-900 text-white' :  'text-gray-300' ?> text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
-            <a href="/contact"
+              <a href="/notes"
+              class="<?= urlIs('/notes')  === '/notes' ?  'bg-gray-900 text-white' :  'text-gray-300' ?> text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Notes</a>
+              <a href="/contact"
               class="<?= urlIs('/contact')  === '/contact' ?  'bg-gray-900 text-white' :  'text-gray-300' ?> text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a>
 
           </div>
