@@ -19,7 +19,15 @@
                             <div class="mt-1">
                                 <textarea id="body" name="body" rows="3"
                                     class="mt-1 px-5 pt-3 block w-full rounded-md text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    placeholder="Here's an idea for a note..."></textarea>
+                                    placeholder="Here's an idea for a note..."><?= $_POST['body'] ? $_POST['body'] : '' ?> </textarea>
+
+                                <?php if (isset($errors['body'])) : ?>
+
+                                <p class="text-red-500 text-xs mt-2">
+                                    <?= $errors['body'];?>
+                                </p>
+
+                                <?php endif ;?>
                             </div>
 
                         </div>
