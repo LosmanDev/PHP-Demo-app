@@ -6,15 +6,20 @@
 <main>
   <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
     <h1 class="font-medium mb-3">Notes</h1>
+    <ul>
+      <?php foreach ($notes as $note) : ?>
+      <li>
+        <a href="/note?id=<?= $note['id']?>"
+          class="text-blue-500 hover:underline font-medium">
+          <?=htmlspecialchars($note['body']) ?>
+        </a>
+      </li>
+      <?php endforeach ;?>
+    </ul>
 
-    <?php foreach ($notes as $note) : ?>
-    <li>
-      <a href="/note?id=<?= $note['id']?>"
-        class="text-blue-500 hover:underline font-medium">
-        <?=$note['body'] ?>
-      </a>
-    </li>
-    <?php endforeach ;?>
+    <p class="mt-6">
+      <a href="/notes/create" class="text-blue-500 hover:underline font-medium">Create Note</a>
+    </p>
   </div>
 
 

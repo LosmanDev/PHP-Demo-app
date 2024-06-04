@@ -1,17 +1,6 @@
 <?php
 
-//Will parse and separate the path from thw query string
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-
-//Created an array of uri's to route to controllers
-$routes = [
-    '/' => 'controllers/index.php',
-    '/about' => 'controllers/about.php',
-    '/notes' => 'controllers/notes.php',
-    '/note' => 'controllers/note.php',
-    '/contact' => 'controllers/contact.php',
-];
-
+$routes = require('routes.php');
 
 function routToController($uri, $routes)
 {
@@ -37,5 +26,7 @@ function abort($code = 404)
     die();
 }
 
+//Will parse and separate the path from thw query string
+$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 routToController($uri, $routes);
