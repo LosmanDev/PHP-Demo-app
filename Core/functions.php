@@ -1,5 +1,7 @@
 <?php
 
+use Core\Response;
+
 function dd($value)
 {
     echo '<pre>';
@@ -16,6 +18,18 @@ function authorize($condition, $status = Response::FORBIDDEN)
     if (! $condition) {
         abort($status);
     }
+}
+
+function abort($code = 404)
+{
+    //Gets or sets the HTTP response status code.
+    http_response_code($code);
+
+    //Status 404 page
+    require base_path("views/{$code}.php");
+
+    // Determined that the requested route doesn't exist (and you've shown the user an error page), kill it.
+    die();
 }
 
 

@@ -1,5 +1,9 @@
 <?php ;
 
+namespace Core;
+
+use PDO;
+
 // Connect to mysql database and execute a query
 class Database
 {
@@ -9,7 +13,7 @@ class Database
 
     public function __construct()
     {
-        $config = require 'config.php';
+        $config = require base_path('config.php');
        
         //Data Source name. A string that declares connection to database.
         $dsn = 'mysql:'.  http_build_query($config['database'], '', ';');
@@ -22,9 +26,9 @@ class Database
 
     public function query($query, $params = [])
     {
-        $this -> statement = $this->connection->prepare($query);
+        $this -> statement = $this -> connection -> prepare($query);
 
-        $this -> statement->execute($params);
+        $this -> statement -> execute($params);
 
         return $this;
     }
