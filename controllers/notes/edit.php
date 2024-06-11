@@ -1,14 +1,13 @@
 <?php
+use Core\App; // Importing the App class from the Core namespace.
+use Core\Database; // Importing the Database class from the Core namespace.
 
-use Core\App;
-use Core\Database;
+$db = App::resolve(Database::class); // Resolving the Database class using the App class.
 
-$db = App::resolve(Database::class);
+$currentUserId = 1; // Setting the current user ID to 1.
 
-$currentUserId = 1;
+$note = $db->query('SELECT * FROM notes WHERE id = :id', ['id' => $_GET['id']])->findOrFail(); // Querying the database to fetch the note with the specified ID.
 
-$note = $db ->query('SELECT * FROM notes WHERE id = :id', ['id' => $_GET['id']]) -> findOrFail();
+authorize($note['user_id'] === $currentUserId); // Authorizing the user based on the note's user ID.
 
-authorize($note['user_id'] === $currentUserId);
-
-view('notes/edit.view.php', ['heading' => 'Edit Note','error' => [], 'note' => $note]);
+view('notes/edit.view.php', ['heading' => 'Edit Note', 'error' => [], 'note' => $note]); // Rendering the edit view with the necessary data.
