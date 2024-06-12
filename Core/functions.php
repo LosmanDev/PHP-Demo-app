@@ -57,3 +57,10 @@ function view($path, $attributes = [])
     // Require the view file
     require base_path('views/' . $path);
 }
+
+function login($user)
+{
+    $_SESSION['user'] = [
+     'email' =>  $user['email']
+    ];
+}

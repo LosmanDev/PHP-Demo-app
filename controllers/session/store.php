@@ -2,6 +2,7 @@
 
 // Importing the Validator class from the Core namespace
 use Core\Validator;
+
 // Importing the App class from the Core namespace
 use Core\App;
 // Importing the Database class from the Core namespace
@@ -16,6 +17,7 @@ $email = $_POST['email'];
 // Getting the value of the 'password' field from the form submission
 $password = $_POST['password'];
 
+
 // Creating an empty array to store validation errors
 $errors = [];
 
@@ -25,14 +27,14 @@ if (!Validator::email($email)) {
 }
 
 // Checking if the password is a string with a minimum length of 7 characters using the Validator class
-if (!Validator::string($password, 7, 255)) {
-    $errors['password'] = 'Please provide a password of at least seven characters.';
+if (!Validator::string($password)) {
+    $errors['password'] = 'Please provide a valid password.';
 }
 
-// If there are any validation errors, return the 'registration/create.view.php' view with the errors
-if (!empty($errors)) {
-    return view('registration/create.view.php', [
-        'errors' => $errors
+// If there are any validation errors, return the 'sessions/create.view.php' view with the errors
+if (! empty($errors)) {
+    return view('session/create.view.php', [
+      'errors' => $errors
     ]);
 }
 
@@ -41,22 +43,22 @@ $user = $db->query('SELECT * FROM users WHERE email = :email', [
     'email' => $email
 ])->find();
 
-// If a user with the given email exists, redirect to the homepage
+// Check if the user is not found in the database
 if ($user) {
+    // Verify if the provided password matches the hashed password stored in the database
+    if (password_verify($password, $user['password'])) {
+        // If the password is correct, log in the user by storing their email in the session
+        login([
+            'email' => $email
+        ]);
 
-    header('location:/');
+        // Redirect the user to the home page
+        header('location: /');
+        exit();
+    }
 
-} else {
-    // If no user with the given email exists, insert a new user into the database
-    $db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
-        'email' => $email,
-        'password' => password_hash($password, PASSWORD_BCRYPT)
-    ]);
-    
-    // Store the user's email in the session
-    login($user);
-
-    // Redirect the user to the home page
-    header('location: /');
-    exit();
 }
+// If not found, return the 'sessions/create.view.php' view with an error message
+return view('session/create.view.php', [
+   'errors' => ['email' => 'No matching account found']
+]);
