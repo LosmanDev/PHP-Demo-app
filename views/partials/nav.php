@@ -14,8 +14,12 @@
               aria-current="page">Home</a>
             <a href="/about"
               class="<?urlIs('/about')  === '/about' ?  'bg-gray-900 text-white' :  'text-gray-300' ?> text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
+
+            <?php if($_SESSION['user'] ?? false) : ?>
             <a href="/notes"
               class="<?= urlIs('/notes')  === '/notes' ?  'bg-gray-900 text-white' :  'text-gray-300' ?> text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Notes</a>
+            <?php endif;?>
+
             <a href="/contact"
               class="<?= urlIs('/contact')  === '/contact' ?  'bg-gray-900 text-white' :  'text-gray-300' ?> text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact</a>
 
@@ -51,9 +55,10 @@
 
           <?php if ($_SESSION['user'] ?? false) :?>
           <div class="ml-3">
-            <a href="/login"
-              class="<?urlIs('/logout') ?  'bg-gray-900 text-white' :  'text-gray-300' ?> text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Log
-              Out</a>
+            <form action="/session" method="post">
+              <input type="hidden" name="_method" value="DELETE" />
+              <button class="text-white">Log Out</button>
+            </form>
           </div>
           <?php endif;?>
         </div>
